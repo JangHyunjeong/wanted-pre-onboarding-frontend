@@ -1,18 +1,18 @@
 import "./App.css";
-import { Route, Routes, Link } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import Main from "./pages/Main";
+import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
+import ToDo from "./pages/ToDo";
 
 function App() {
   return (
     <div>
-      <Link to="/">메인</Link>
-      <Link to="/signup">회원가입</Link>
-      <Link to="/signin">로그인</Link>
-      <Link to="/todo">투두</Link>
       <Routes>
-        <Route path="/" element={<div>메인임</div>}></Route>
-        <Route path="/signup" element={<div>회원가입</div>}></Route>
-        <Route path="/signin" element={<div>로그인</div>}></Route>
-        <Route path="/todo" element={<div>투두</div>}></Route>
+        <Route path="/" element={<Main></Main>}></Route>
+        <Route path="/signup" element={<SignUp></SignUp>}></Route>
+        <Route path="/signin" element={<SignIn></SignIn>}></Route>
+        <Route path="/todo" element={<ToDo></ToDo>}></Route>
       </Routes>
     </div>
   );
