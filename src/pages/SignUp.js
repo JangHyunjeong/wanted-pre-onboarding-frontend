@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+// styles
+import style from "../styles/SignUp.module.css";
+
 const SignUp = () => {
   const navigate = useNavigate();
 
@@ -63,7 +66,6 @@ const SignUp = () => {
       data: data,
     })
       .then((res) => {
-        console.log(res);
         navigate(`/signin`);
       })
       .catch((err) => {
@@ -74,32 +76,50 @@ const SignUp = () => {
 
   return (
     <div>
-      <h2>회원가입</h2>
+      <h2 className={style.title}>회원가입</h2>
 
       <form>
+        <label htmlFor="signUpId" className={style.label}>
+          아이디
+        </label>
         <input
           type="text"
           data-testid="email-input"
           value={id}
           onInput={(e) => checkId(e.target.value)}
+          className={style.input}
+          id="signUpId"
         />
         {validateId === true ? (
-          <p>사용가능한 아이디입니다.</p>
+          <p className={`${style.desc} ${style.color_blue}`}>
+            사용가능한 아이디입니다.
+          </p>
         ) : (
-          <p>이메일에는 @가 들어가야합니다.</p>
+          <p className={`${style.desc} ${style.color_red}`}>
+            이메일에는 @가 들어가야합니다.
+          </p>
         )}
 
+        <label htmlFor="signUpPw" className={style.label}>
+          비밀번호
+        </label>
         <input
           type="password"
           data-testid="password-input"
           value={pw}
           onInput={(e) => checkPw(e.target.value)}
           autoComplete="false"
+          id="signUpPw"
+          className={style.input}
         />
         {validatePw === true ? (
-          <p>사용가능한 비밀번호입니다.</p>
+          <p className={`${style.desc} ${style.color_blue}`}>
+            사용가능한 비밀번호입니다.
+          </p>
         ) : (
-          <p>비밀번호는 8자 이상으로 입력해주세요.</p>
+          <p className={`${style.desc} ${style.color_red}`}>
+            비밀번호는 8자 이상으로 입력해주세요.
+          </p>
         )}
 
         <button
@@ -109,6 +129,7 @@ const SignUp = () => {
           onClick={() => {
             signUp();
           }}
+          className={style.button}
         >
           회원가입
         </button>

@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+// styles
+import style from "../styles/SignIn.module.css";
+
 const SignIn = () => {
   const navigate = useNavigate();
 
@@ -77,32 +80,50 @@ const SignIn = () => {
 
   return (
     <div>
-      <h2>로그인</h2>
+      <h2 className={style.title}>로그인</h2>
 
       <form>
+        <label htmlFor="joinId" className={style.label}>
+          아이디
+        </label>
         <input
           type="text"
           data-testid="email-input"
           value={id}
           onInput={(e) => checkId(e.target.value)}
+          className={style.input}
+          id="joinId"
         />
         {validateId === true ? (
-          <p>사용가능한 아이디입니다.</p>
+          <p className={`${style.desc} ${style.color_blue}`}>
+            사용가능한 아이디입니다.
+          </p>
         ) : (
-          <p>이메일에는 @가 들어가야합니다.</p>
+          <p className={`${style.desc} ${style.color_red}`}>
+            이메일에는 @가 들어가야합니다.
+          </p>
         )}
 
+        <label htmlFor="joinPw" className={style.label}>
+          비밀번호
+        </label>
         <input
           type="password"
           data-testid="password-input"
           value={pw}
           onInput={(e) => checkPw(e.target.value)}
           autoComplete="false"
+          id="joinPw"
+          className={style.input}
         />
         {validatePw === true ? (
-          <p>사용가능한 비밀번호입니다.</p>
+          <p className={`${style.desc} ${style.color_blue}`}>
+            사용가능한 비밀번호입니다.
+          </p>
         ) : (
-          <p>비밀번호는 8자 이상으로 입력해주세요.</p>
+          <p className={`${style.desc} ${style.color_red}`}>
+            비밀번호는 8자 이상으로 입력해주세요.
+          </p>
         )}
 
         <button
@@ -112,6 +133,7 @@ const SignIn = () => {
           onClick={() => {
             signIn();
           }}
+          className={style.button}
         >
           로그인
         </button>
