@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +12,14 @@ const SignUp = () => {
   const [validatePw, setValidatePw] = useState(false);
 
   const [buttonState, setButtonState] = useState(true);
+
+  // 로그인시, /todo로 리다이렉트
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("access_token"));
+    if (token !== null) {
+      navigate(`/todo`);
+    }
+  }, [navigate]);
 
   const checkId = (value) => {
     setId(value);
