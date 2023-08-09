@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 // styles
 import style from "../styles/SignIn.module.css";
@@ -137,6 +137,10 @@ const SignIn = () => {
         >
           로그인
         </button>
+
+        <p className={style.tail_comment}>
+          계정이 없으시다구요? <Link to="/signup">회원가입 바로가기</Link>
+        </p>
       </form>
     </div>
   );
