@@ -20,6 +20,7 @@ function ToDo() {
     } else {
       getTodos();
     }
+    // eslint-disable-next-line
   }, []);
 
   // 리스트 가져오기
@@ -71,7 +72,6 @@ function ToDo() {
       },
     })
       .then((res) => {
-        console.log(res);
         getTodos();
       })
       .catch((err) => {
@@ -117,7 +117,7 @@ function ToDo() {
       },
       data: data,
     })
-      .then((res) => {
+      .then(() => {
         getTodos();
       })
       .catch((err) => {
