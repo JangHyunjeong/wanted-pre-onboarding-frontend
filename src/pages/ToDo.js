@@ -37,7 +37,7 @@ function ToDo() {
   };
 
   const createTodo = () => {
-    let data = { todo: newTodo };
+    const data = { todo: newTodo };
 
     axios({
       method: "post",
@@ -49,6 +49,46 @@ function ToDo() {
       data: data,
     })
       .then((res) => {
+        getTodos();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const updateTodo = (isCompleted, id) => {
+    const target = todoList.find((item) => {
+      return item.id === id;
+    });
+    const data = { todo: target.todo, isCompleted: isCompleted };
+
+    axios({
+      method: "PUT",
+      url: `https://www.pre-onboarding-selection-task.shop/todos/${id}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      data: data,
+    })
+      .then((res) => {
+        getTodos();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const deleteTodo = (id) => {
+    axios({
+      method: "DELETE",
+      url: `https://www.pre-onboarding-selection-task.shop/todos/${id}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        console.log(res);
         getTodos();
       })
       .catch((err) => {
@@ -80,7 +120,13 @@ function ToDo() {
               <div className={style.todo_normal}>
                 <label>
                   <div className={style.check_wrap}>
-                    <input type="checkbox" className="visually-hidden" />
+                    <input
+                      type="checkbox"
+                      className="visually-hidden"
+                      onChange={(e) => {
+                        updateTodo(e.target.checked, item.id);
+                      }}
+                    />
                     {item.isCompleted === false ? (
                       <i className={`xi-check-circle-o ${style.check_off}`}></i>
                     ) : (
@@ -100,6 +146,9 @@ function ToDo() {
                   <button
                     data-testid="delete-button"
                     className={style.bg_black}
+                    onClick={() => {
+                      deleteTodo(item.id);
+                    }}
                   >
                     삭제
                   </button>
