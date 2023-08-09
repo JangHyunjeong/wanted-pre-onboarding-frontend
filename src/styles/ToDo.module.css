@@ -33,9 +33,15 @@
 
 .todo_list {
   margin-top: 20px;
+  max-height: calc(100vh - 300px);
+  width: calc(100% + 40px);
+  margin-left: -20px;
+  padding: 0 20px;
+  overflow: auto;
 }
 .todo_item {
-  margin-top: 10px;
+  padding: 14px 0;
+  border-bottom: 1px solid #ddd;
 }
 .todo_item label {
   display: flex;
@@ -43,17 +49,11 @@
 }
 .todo_item label .check_wrap {
   font-size: 24px;
-  color: blue;
+  color: gray;
   margin-right: 8px;
 }
-.todo_item label .check_wrap input ~ .check_on {
-  display: none;
-}
-.todo_item label .check_wrap input:checked ~ .check_off {
-  display: none;
-}
-.todo_item label .check_wrap input:checked ~ .check_on {
-  display: block;
+.todo_item label .check_wrap .check_on {
+  color: blue;
 }
 .todo_item label span {
   font-size: 16px;
