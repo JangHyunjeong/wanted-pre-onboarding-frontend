@@ -45,7 +45,7 @@
 }
 .todo_item label {
   display: flex;
-  position: relative;
+  cursor: pointer;
 }
 .todo_item label .check_wrap {
   font-size: 24px;
@@ -60,9 +60,6 @@
   line-height: 1.4;
 }
 
-.todo_edit {
-  display: none;
-}
 .todo_edit input {
   display: block;
   width: 100%;
