@@ -53,6 +53,7 @@ function ToDo() {
       data: data,
     })
       .then((res) => {
+        setNewTodo("");
         getTodos();
       })
       .catch((err) => {
