@@ -142,7 +142,7 @@ function ToDo() {
 
   return (
     <div>
-      <h2 className={style.title}>투두</h2>
+      <h2 className={style.title}>할일 리스트</h2>
 
       <div className={style.todo_write}>
         <input
@@ -158,86 +158,92 @@ function ToDo() {
       </div>
 
       <ul className={style.todo_list}>
-        {todoList.map((item) => {
-          return (
-            <li className={style.todo_item} key={item.id}>
-              {isEditable !== item.id ? (
-                <div className={style.todo_normal}>
-                  <label>
-                    <div className={style.check_wrap}>
-                      <input
-                        type="checkbox"
-                        className="visually-hidden"
-                        onChange={(e) => {
-                          updateCompleted(e.target.checked, item.id);
-                        }}
-                      />
-                      {item.isCompleted === false ? (
-                        <i
-                          className={`xi-check-circle-o ${style.check_off}`}
-                        ></i>
-                      ) : (
-                        <i className={`xi-check-circle ${style.check_on}`}></i>
-                      )}
-                    </div>
+        {todoList.length === 0 ? (
+          <li className={style.todo_empty}>등록된 할일이 없습니다.</li>
+        ) : (
+          todoList.map((item) => {
+            return (
+              <li className={style.todo_item} key={item.id}>
+                {isEditable !== item.id ? (
+                  <div className={style.todo_normal}>
+                    <label>
+                      <div className={style.check_wrap}>
+                        <input
+                          type="checkbox"
+                          className="visually-hidden"
+                          onChange={(e) => {
+                            updateCompleted(e.target.checked, item.id);
+                          }}
+                        />
+                        {item.isCompleted === false ? (
+                          <i
+                            className={`xi-check-circle-o ${style.check_off}`}
+                          ></i>
+                        ) : (
+                          <i
+                            className={`xi-check-circle ${style.check_on}`}
+                          ></i>
+                        )}
+                      </div>
 
-                    <span>{item.todo}</span>
-                  </label>
-                  <div className={style.button_wrap}>
-                    <button
-                      data-testid="modify-button"
-                      className={style.bg_white}
-                      onClick={() => {
-                        changeMode(item.id);
-                      }}
-                    >
-                      수정
-                    </button>
-                    <button
-                      data-testid="delete-button"
-                      className={style.bg_black}
-                      onClick={() => {
-                        deleteTodo(item.id);
-                      }}
-                    >
-                      삭제
-                    </button>
+                      <span>{item.todo}</span>
+                    </label>
+                    <div className={style.button_wrap}>
+                      <button
+                        data-testid="modify-button"
+                        className={style.bg_white}
+                        onClick={() => {
+                          changeMode(item.id);
+                        }}
+                      >
+                        수정
+                      </button>
+                      <button
+                        data-testid="delete-button"
+                        className={style.bg_black}
+                        onClick={() => {
+                          deleteTodo(item.id);
+                        }}
+                      >
+                        삭제
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <div className={style.todo_edit}>
-                  <input
-                    data-testid="modify-input"
-                    onInput={(e) => {
-                      getEditModeInput(e.target.value);
-                    }}
-                    value={editModeInput}
-                  />
-                  <div className={style.button_wrap}>
-                    <button
-                      data-testid="submit-button"
-                      className={style.bg_blue}
-                      onClick={() => {
-                        updateTodo(item.isCompleted, item.id);
+                ) : (
+                  <div className={style.todo_edit}>
+                    <input
+                      data-testid="modify-input"
+                      onInput={(e) => {
+                        getEditModeInput(e.target.value);
                       }}
-                    >
-                      제출
-                    </button>
-                    <button
-                      data-testid="cancel-button"
-                      className={style.bg_black}
-                      onClick={() => {
-                        setIsEditable("");
-                      }}
-                    >
-                      취소
-                    </button>
+                      value={editModeInput}
+                    />
+                    <div className={style.button_wrap}>
+                      <button
+                        data-testid="submit-button"
+                        className={style.bg_blue}
+                        onClick={() => {
+                          updateTodo(item.isCompleted, item.id);
+                        }}
+                      >
+                        제출
+                      </button>
+                      <button
+                        data-testid="cancel-button"
+                        className={style.bg_black}
+                        onClick={() => {
+                          setIsEditable("");
+                        }}
+                      >
+                        취소
+                      </button>
+                    </div>
                   </div>
-                </div>
-              )}
-            </li>
-          );
-        })}
+                )}
+              </li>
+            );
+          })
+        )}
       </ul>
     </div>
   );
