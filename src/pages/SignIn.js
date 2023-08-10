@@ -40,7 +40,7 @@ const SignIn = () => {
 
   const checkPw = (value) => {
     setPw(value);
-    const reg = /[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9#?!@$ %^&*-]{8,}$/;
+    const reg = /.{8,}$/;
     if (reg.test(value) === true) {
       setValidatePw(true);
       if (validateId === true) {
