@@ -35,6 +35,7 @@ const SignIn = () => {
       }
     } else {
       setValidateId(false);
+      setButtonState(true);
     }
   };
 
@@ -48,6 +49,7 @@ const SignIn = () => {
       }
     } else {
       setValidatePw(false);
+      setButtonState(true);
     }
   };
 

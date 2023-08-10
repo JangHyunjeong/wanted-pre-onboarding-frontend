@@ -35,6 +35,7 @@ const SignUp = () => {
       }
     } else {
       setValidateId(false);
+      setButtonState(true);
     }
   };
 
@@ -48,6 +49,7 @@ const SignUp = () => {
       }
     } else {
       setValidatePw(false);
+      setButtonState(true);
     }
   };
 
