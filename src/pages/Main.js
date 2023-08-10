@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import style from "../styles/Main.module.css";
 
-function Main() {
+const Main = () => {
   const token = JSON.parse(localStorage.getItem("access_token"));
 
   return (
@@ -39,6 +39,6 @@ function Main() {
       )}
     </div>
   );
-}
+};
 
 export default Main;

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 // styles
 import style from "../styles/ToDo.module.css";
 
-function ToDo() {
+const ToDo = () => {
   const navigate = useNavigate();
   const [newTodo, setNewTodo] = useState("");
   const token = JSON.parse(localStorage.getItem("access_token"));
@@ -37,6 +37,7 @@ function ToDo() {
       })
       .catch((err) => {
         console.log(err);
+        alert("리스트 가져오기 오류");
       });
   };
 
@@ -53,12 +54,13 @@ function ToDo() {
       },
       data: data,
     })
-      .then((res) => {
+      .then(() => {
         setNewTodo("");
         getTodos();
       })
       .catch((err) => {
         console.log(err);
+        alert("생성 오류");
       });
   };
 
@@ -71,10 +73,11 @@ function ToDo() {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((res) => {
+      .then(() => {
         getTodos();
       })
       .catch((err) => {
+        alert("삭제 오류");
         console.log(err);
       });
   };
@@ -97,6 +100,7 @@ function ToDo() {
         setIsEditable("");
       })
       .catch((err) => {
+        alert("수정 오류");
         console.log(err);
       });
   };
@@ -121,6 +125,7 @@ function ToDo() {
         getTodos();
       })
       .catch((err) => {
+        alert("수정 오류");
         console.log(err);
       });
   };
@@ -247,6 +252,6 @@ function ToDo() {
       </ul>
     </div>
   );
-}
+};
 
 export default ToDo;
