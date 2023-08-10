@@ -12,6 +12,7 @@ import Main from "./pages/Main";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import ToDo from "./pages/ToDo";
+import Error from "./pages/Error";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/signup" element={<SignUp></SignUp>}></Route>
           <Route path="/signin" element={<SignIn></SignIn>}></Route>
           <Route path="/todo" element={<ToDo></ToDo>}></Route>
+          <Route path="/*" element={<Error></Error>}></Route>
         </Routes>
       </div>
     </div>
