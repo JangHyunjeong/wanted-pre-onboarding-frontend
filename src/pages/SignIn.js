@@ -75,8 +75,11 @@ const SignIn = () => {
         navigate(`/todo`);
       })
       .catch((err) => {
-        console.log(err);
-        alert("로그인 오류");
+        if (err.response.status === 401) {
+          alert("아이디 혹은 비밀번호를 확인해주세요.");
+        } else {
+          alert(`로그인 오류 : ${err.message}`);
+        }
       });
   };
 

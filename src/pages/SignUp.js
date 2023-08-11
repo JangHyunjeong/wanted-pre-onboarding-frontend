@@ -68,11 +68,15 @@ const SignUp = () => {
       data: data,
     })
       .then(() => {
+        alert("회원가입 완료");
         navigate(`/signin`);
       })
       .catch((err) => {
-        console.log(err);
-        alert("회원가입 오류");
+        if (err.response.status === 400) {
+          alert("동일한 이메일이 이미 존재합니다.");
+        } else {
+          alert(`회원가입 오류 : ${err.message}`);
+        }
       });
   };
 
