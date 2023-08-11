@@ -36,8 +36,7 @@ const ToDo = () => {
         setTodoList(res.data);
       })
       .catch((err) => {
-        console.log(err);
-        alert("리스트 가져오기 오류");
+        alert(`오류 : ${err.message}`);
       });
   };
 
@@ -59,8 +58,11 @@ const ToDo = () => {
         getTodos();
       })
       .catch((err) => {
-        console.log(err);
-        alert("생성 오류");
+        if (err.response.status === 400) {
+          alert("할일을 입력해주세요");
+        } else {
+          alert(`생성 오류 : ${err.message}`);
+        }
       });
   };
 
@@ -77,8 +79,7 @@ const ToDo = () => {
         getTodos();
       })
       .catch((err) => {
-        alert("삭제 오류");
-        console.log(err);
+        alert(`삭제 오류 : ${err.message}`);
       });
   };
 
@@ -95,13 +96,12 @@ const ToDo = () => {
       },
       data: data,
     })
-      .then((res) => {
+      .then(() => {
         getTodos();
         setIsEditable("");
       })
       .catch((err) => {
-        alert("수정 오류");
-        console.log(err);
+        alert(`수정 오류 : ${err.message}`);
       });
   };
 
@@ -125,8 +125,7 @@ const ToDo = () => {
         getTodos();
       })
       .catch((err) => {
-        alert("수정 오류");
-        console.log(err);
+        alert(`수정 오류 : ${err.message}`);
       });
   };
 
