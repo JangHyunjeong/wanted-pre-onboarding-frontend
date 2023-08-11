@@ -76,7 +76,7 @@ const SignIn = () => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          alert("아이디 혹은 비밀번호를 확인해주세요.");
+          alert("이메일 혹은 비밀번호를 확인해주세요.");
         } else {
           alert(`로그인 오류 : ${err.message}`);
         }
@@ -89,7 +89,7 @@ const SignIn = () => {
 
       <form>
         <label htmlFor="joinId" className={style.label}>
-          아이디
+          이메일
         </label>
         <input
           type="text"
@@ -101,7 +101,7 @@ const SignIn = () => {
         />
         {validateId === true ? (
           <p className={`${style.desc} ${style.color_blue}`}>
-            사용가능한 아이디입니다.
+            사용가능한 이메일입니다.
           </p>
         ) : (
           <p className={`${style.desc} ${style.color_red}`}>

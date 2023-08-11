@@ -86,7 +86,7 @@ const SignUp = () => {
 
       <form>
         <label htmlFor="signUpId" className={style.label}>
-          아이디
+          이메일
         </label>
         <input
           type="text"
@@ -98,7 +98,7 @@ const SignUp = () => {
         />
         {validateId === true ? (
           <p className={`${style.desc} ${style.color_blue}`}>
-            사용가능한 아이디입니다.
+            사용가능한 이메일입니다.
           </p>
         ) : (
           <p className={`${style.desc} ${style.color_red}`}>
