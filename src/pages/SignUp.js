@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import useValidate from "../hooks/useValidate";
+import { getSignUp } from "../apis/auth/auth";
 
 // styles
 import style from "../styles/SignUp.module.css";
@@ -30,18 +30,9 @@ const SignUp = () => {
   }, [navigate]);
 
   const signUp = () => {
-    let data = {
+    getSignUp({
       email: id,
       password: pw,
-    };
-
-    axios({
-      method: "post",
-      url: "https://www.pre-onboarding-selection-task.shop/auth/signup",
-      headers: {
-        "Content-Type": `application/json`,
-      },
-      data: data,
     })
       .then(() => {
         alert("회원가입 완료");

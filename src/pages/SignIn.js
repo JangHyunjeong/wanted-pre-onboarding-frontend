@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import useValidate from "../hooks/useValidate";
+import { getSignIn } from "../apis/auth/auth";
 
 // styles
 import style from "../styles/SignIn.module.css";
@@ -30,18 +30,9 @@ const SignIn = () => {
   }, [navigate]);
 
   const signIn = () => {
-    let data = {
+    getSignIn({
       email: id,
       password: pw,
-    };
-
-    axios({
-      method: "post",
-      url: "https://www.pre-onboarding-selection-task.shop/auth/signin",
-      headers: {
-        "Content-Type": `application/json`,
-      },
-      data: data,
     })
       .then((res) => {
         localStorage.setItem(
