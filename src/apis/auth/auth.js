@@ -6,6 +6,7 @@ export const getSignIn = async data => {
     const res = await instance.post('/signin', data);
     return res;
   } catch (err) {
+    console.error();
     throw err;
   }
 };
@@ -16,6 +17,7 @@ export const getSignUp = async data => {
     const res = await instance.post('/signup', data);
     return res;
   } catch (err) {
+    console.error();
     throw err;
   }
 };
