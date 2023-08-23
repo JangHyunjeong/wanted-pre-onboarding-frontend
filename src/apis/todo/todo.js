@@ -1,4 +1,4 @@
-import { instance } from "./instance";
+import { instance } from './instance';
 
 export const getTodos = async () => {
   try {
@@ -9,16 +9,16 @@ export const getTodos = async () => {
   }
 };
 
-export const getCreateTodo = async (data) => {
+export const getCreateTodo = async data => {
   try {
-    const res = await instance.post("", data);
+    const res = await instance.post('', data);
     return res;
   } catch (err) {
     throw err;
   }
 };
 
-export const getDeleteTodo = async (id) => {
+export const getDeleteTodo = async id => {
   try {
     const res = await instance.delete(`${id}`);
     return res;

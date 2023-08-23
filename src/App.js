@@ -1,18 +1,18 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from 'react-router-dom';
 
 // styles
-import "./styles/global.css";
-import style from "./styles/App.module.css";
+import './styles/global.css';
+import style from './styles/App.module.css';
 
 // components
-import GlobalHeader from "./components/GlobalHeader";
+import GlobalHeader from './components/GlobalHeader';
 
 // pages
-import Main from "./pages/Main";
-import SignUp from "./pages/SignUp";
-import SignIn from "./pages/SignIn";
-import ToDo from "./pages/ToDo";
-import Error from "./pages/Error";
+import Main from './pages/Main';
+import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
+import ToDo from './pages/ToDo';
+import Error from './pages/Error';
 
 function App() {
   return (

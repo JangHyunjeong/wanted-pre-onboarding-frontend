@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
-import style from "../styles/Main.module.css";
+import { Link } from 'react-router-dom';
+import style from '../styles/Main.module.css';
 
 const Main = () => {
-  const token = JSON.parse(localStorage.getItem("access_token"));
+  const token = JSON.parse(localStorage.getItem('access_token'));
 
   return (
     <div className={style.main_wrap}>

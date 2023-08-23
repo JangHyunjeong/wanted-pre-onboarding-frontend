@@ -1,22 +1,17 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import {
-  getTodos,
-  getCreateTodo,
-  getDeleteTodo,
-  getUpdateTodo,
-} from "../apis/todo/todo";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getTodos, getCreateTodo, getDeleteTodo, getUpdateTodo } from '../apis/todo/todo';
 
 // styles
-import style from "../styles/ToDo.module.css";
+import style from '../styles/ToDo.module.css';
 
 const ToDo = () => {
   const navigate = useNavigate();
-  const [newTodo, setNewTodo] = useState("");
-  const token = JSON.parse(localStorage.getItem("access_token"));
+  const [newTodo, setNewTodo] = useState('');
+  const token = JSON.parse(localStorage.getItem('access_token'));
   const [todoList, setTodoList] = useState([]);
-  const [isEditable, setIsEditable] = useState("");
-  const [editModeInput, setEditModeInput] = useState("");
+  const [isEditable, setIsEditable] = useState('');
+  const [editModeInput, setEditModeInput] = useState('');
 
   // token이 없는 경우, signin 으로 리다이렉트
   useEffect(() => {
@@ -31,10 +26,10 @@ const ToDo = () => {
   // 리스트 가져오기
   const loadTodoList = () => {
     getTodos()
-      .then((res) => {
+      .then(res => {
         setTodoList(res.data);
       })
-      .catch((err) => {
+      .catch(err => {
         alert(`오류 : ${err.message}`);
       });
   };
@@ -43,12 +38,12 @@ const ToDo = () => {
   const createTodo = () => {
     getCreateTodo({ todo: newTodo })
       .then(() => {
-        setNewTodo("");
+        setNewTodo('');
         loadTodoList();
       })
-      .catch((err) => {
+      .catch(err => {
         if (err.response.status === 400) {
-          alert("할일을 입력해주세요");
+          alert('할일을 입력해주세요');
         } else {
           alert(`생성 오류 : ${err.message}`);
         }
@@ -56,12 +51,12 @@ const ToDo = () => {
   };
 
   // 삭제하기
-  const deleteTodo = (id) => {
+  const deleteTodo = id => {
     getDeleteTodo(id)
       .then(() => {
         loadTodoList();
       })
-      .catch((err) => {
+      .catch(err => {
         alert(`삭제 오류 : ${err.message}`);
       });
   };
@@ -71,21 +66,21 @@ const ToDo = () => {
     getUpdateTodo(id, { todo: value, isCompleted: isCompleted })
       .then(() => {
         loadTodoList();
-        setIsEditable("");
+        setIsEditable('');
       })
-      .catch((err) => {
+      .catch(err => {
         alert(`수정 오류 : ${err.message}`);
       });
   };
 
   // 수정할 input 가져오기
-  const getEditModeInput = (value) => {
+  const getEditModeInput = value => {
     setEditModeInput(value);
   };
 
   // 수정모드로 전환
-  const changeMode = (id) => {
-    const target = [...todoList].find((item) => {
+  const changeMode = id => {
+    const target = [...todoList].find(item => {
       return item.id === id;
     });
 
@@ -100,7 +95,7 @@ const ToDo = () => {
       <div className={style.todo_write}>
         <input
           data-testid="new-todo-input"
-          onInput={(e) => {
+          onInput={e => {
             setNewTodo(e.target.value);
           }}
           value={newTodo}
@@ -114,7 +109,7 @@ const ToDo = () => {
         {todoList.length === 0 ? (
           <li className={style.todo_empty}>등록된 할일이 없습니다.</li>
         ) : (
-          todoList.map((item) => {
+          todoList.map(item => {
             return (
               <li className={style.todo_item} key={item.id}>
                 {isEditable !== item.id ? (
@@ -124,18 +119,14 @@ const ToDo = () => {
                         <input
                           type="checkbox"
                           className="visually-hidden"
-                          onChange={(e) => {
+                          onChange={e => {
                             updateTodo(item.id, e.target.checked, item.todo);
                           }}
                         />
                         {item.isCompleted === false ? (
-                          <i
-                            className={`xi-check-circle-o ${style.check_off}`}
-                          ></i>
+                          <i className={`xi-check-circle-o ${style.check_off}`}></i>
                         ) : (
-                          <i
-                            className={`xi-check-circle ${style.check_on}`}
-                          ></i>
+                          <i className={`xi-check-circle ${style.check_on}`}></i>
                         )}
                       </div>
 
@@ -166,7 +157,7 @@ const ToDo = () => {
                   <div className={style.todo_edit}>
                     <input
                       data-testid="modify-input"
-                      onInput={(e) => {
+                      onInput={e => {
                         getEditModeInput(e.target.value);
                       }}
                       value={editModeInput}
@@ -185,7 +176,7 @@ const ToDo = () => {
                         data-testid="cancel-button"
                         className={style.bg_black}
                         onClick={() => {
-                          setIsEditable("");
+                          setIsEditable('');
                         }}
                       >
                         취소

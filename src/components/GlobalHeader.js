@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 // css
-import style from "../styles/GlobalHeader.module.css";
+import style from '../styles/GlobalHeader.module.css';
 
 function GlobalHeader() {
   return (

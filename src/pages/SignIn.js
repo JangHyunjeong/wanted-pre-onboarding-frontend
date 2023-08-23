@@ -1,29 +1,21 @@
-import { useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import useValidate from "../hooks/useValidate";
-import { getSignIn } from "../apis/auth/auth";
+import { useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import useValidate from '../hooks/useValidate';
+import { getSignIn } from '../apis/auth/auth';
 
 // styles
-import style from "../styles/SignIn.module.css";
+import style from '../styles/SignIn.module.css';
 
 const SignIn = () => {
   const navigate = useNavigate();
 
-  const {
-    value: id,
-    validateValue: validateId,
-    validateStatus: validateIdStatus,
-  } = useValidate();
+  const { value: id, validateValue: validateId, validateStatus: validateIdStatus } = useValidate();
 
-  const {
-    value: pw,
-    validateValue: validatePw,
-    validateStatus: validatePwStatus,
-  } = useValidate();
+  const { value: pw, validateValue: validatePw, validateStatus: validatePwStatus } = useValidate();
 
   // 로그인시, /todo로 리다이렉트
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("access_token"));
+    const token = JSON.parse(localStorage.getItem('access_token'));
     if (token !== null) {
       navigate(`/todo`);
     }
@@ -34,16 +26,13 @@ const SignIn = () => {
       email: id,
       password: pw,
     })
-      .then((res) => {
-        localStorage.setItem(
-          "access_token",
-          JSON.stringify(res.data.access_token)
-        );
+      .then(res => {
+        localStorage.setItem('access_token', JSON.stringify(res.data.access_token));
         navigate(`/todo`);
       })
-      .catch((err) => {
+      .catch(err => {
         if (err.response.status === 401) {
-          alert("이메일 혹은 비밀번호를 확인해주세요.");
+          alert('이메일 혹은 비밀번호를 확인해주세요.');
         } else {
           alert(`로그인 오류 : ${err.message}`);
         }
@@ -62,18 +51,14 @@ const SignIn = () => {
           type="text"
           data-testid="email-input"
           value={id}
-          onInput={(e) => validateId([e.target.value, /@/])}
+          onInput={e => validateId([e.target.value, /@/])}
           className={style.input}
           id="joinId"
         />
         {validateIdStatus === true ? (
-          <p className={`${style.desc} ${style.color_blue}`}>
-            사용가능한 이메일입니다.
-          </p>
+          <p className={`${style.desc} ${style.color_blue}`}>사용가능한 이메일입니다.</p>
         ) : (
-          <p className={`${style.desc} ${style.color_red}`}>
-            이메일에는 @가 들어가야합니다.
-          </p>
+          <p className={`${style.desc} ${style.color_red}`}>이메일에는 @가 들어가야합니다.</p>
         )}
 
         <label htmlFor="joinPw" className={style.label}>
@@ -83,15 +68,13 @@ const SignIn = () => {
           type="password"
           data-testid="password-input"
           value={pw}
-          onInput={(e) => validatePw([e.target.value, /.{8,}$/])}
+          onInput={e => validatePw([e.target.value, /.{8,}$/])}
           autoComplete="false"
           id="joinPw"
           className={style.input}
         />
         {validatePwStatus === true ? (
-          <p className={`${style.desc} ${style.color_blue}`}>
-            사용가능한 비밀번호입니다.
-          </p>
+          <p className={`${style.desc} ${style.color_blue}`}>사용가능한 비밀번호입니다.</p>
         ) : (
           <p className={`${style.desc} ${style.color_red}`}>
             비밀번호는 8자 이상으로 입력해주세요.

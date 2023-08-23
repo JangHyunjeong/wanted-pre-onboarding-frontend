@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const instance = axios.create({
-  baseURL: "https://www.pre-onboarding-selection-task.shop/auth/",
-  headers: { "Content-Type": "application/json" },
+  baseURL: 'https://www.pre-onboarding-selection-task.shop/auth/',
+  headers: { 'Content-Type': 'application/json' },
 });

@@ -1,9 +1,9 @@
-import { instance } from "./instance";
+import { instance } from './instance';
 
 // 로그인
-export const getSignIn = async (data) => {
+export const getSignIn = async data => {
   try {
-    const res = await instance.post("/signin", data);
+    const res = await instance.post('/signin', data);
     return res;
   } catch (err) {
     throw err;
@@ -11,9 +11,9 @@ export const getSignIn = async (data) => {
 };
 
 // 회원가입
-export const getSignUp = async (data) => {
+export const getSignUp = async data => {
   try {
-    const res = await instance.post("/signup", data);
+    const res = await instance.post('/signup', data);
     return res;
   } catch (err) {
     throw err;
