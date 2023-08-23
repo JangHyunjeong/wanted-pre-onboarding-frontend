@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {
+  getTodos,
+  getCreateTodo,
+  getDeleteTodo,
+  getUpdateTodo,
+} from "../apis/todo/todo";
 
 // styles
 import style from "../styles/ToDo.module.css";
@@ -18,20 +23,14 @@ const ToDo = () => {
     if (token === null) {
       navigate(`/signin`);
     } else {
-      getTodos();
+      loadTodoList();
     }
     // eslint-disable-next-line
   }, []);
 
   // 리스트 가져오기
-  const getTodos = () => {
-    axios({
-      method: "get",
-      url: "https://www.pre-onboarding-selection-task.shop/todos",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+  const loadTodoList = () => {
+    getTodos()
       .then((res) => {
         setTodoList(res.data);
       })
@@ -42,20 +41,10 @@ const ToDo = () => {
 
   // 생성하기
   const createTodo = () => {
-    const data = { todo: newTodo };
-
-    axios({
-      method: "post",
-      url: "https://www.pre-onboarding-selection-task.shop/todos",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      data: data,
-    })
+    getCreateTodo({ todo: newTodo })
       .then(() => {
         setNewTodo("");
-        getTodos();
+        loadTodoList();
       })
       .catch((err) => {
         if (err.response.status === 400) {
@@ -68,15 +57,9 @@ const ToDo = () => {
 
   // 삭제하기
   const deleteTodo = (id) => {
-    axios({
-      method: "DELETE",
-      url: `https://www.pre-onboarding-selection-task.shop/todos/${id}`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    getDeleteTodo(id)
       .then(() => {
-        getTodos();
+        loadTodoList();
       })
       .catch((err) => {
         alert(`삭제 오류 : ${err.message}`);
@@ -84,45 +67,11 @@ const ToDo = () => {
   };
 
   // 수정하기
-  const updateTodo = (isCompleted, id) => {
-    const data = { todo: editModeInput, isCompleted: isCompleted };
-
-    axios({
-      method: "PUT",
-      url: `https://www.pre-onboarding-selection-task.shop/todos/${id}`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      data: data,
-    })
+  const updateTodo = (id, isCompleted, value) => {
+    getUpdateTodo(id, { todo: value, isCompleted: isCompleted })
       .then(() => {
-        getTodos();
+        loadTodoList();
         setIsEditable("");
-      })
-      .catch((err) => {
-        alert(`수정 오류 : ${err.message}`);
-      });
-  };
-
-  // 체크하기
-  const updateCompleted = (isCompleted, id) => {
-    const target = [...todoList].find((item) => {
-      return item.id === id;
-    });
-    const data = { todo: target.todo, isCompleted: isCompleted };
-
-    axios({
-      method: "PUT",
-      url: `https://www.pre-onboarding-selection-task.shop/todos/${id}`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      data: data,
-    })
-      .then(() => {
-        getTodos();
       })
       .catch((err) => {
         alert(`수정 오류 : ${err.message}`);
@@ -176,7 +125,7 @@ const ToDo = () => {
                           type="checkbox"
                           className="visually-hidden"
                           onChange={(e) => {
-                            updateCompleted(e.target.checked, item.id);
+                            updateTodo(item.id, e.target.checked, item.todo);
                           }}
                         />
                         {item.isCompleted === false ? (
@@ -227,7 +176,7 @@ const ToDo = () => {
                         data-testid="submit-button"
                         className={style.bg_blue}
                         onClick={() => {
-                          updateTodo(item.isCompleted, item.id);
+                          updateTodo(item.id, item.isCompleted, editModeInput);
                         }}
                       >
                         제출
