@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import useValidate from "../hooks/useValidate";
 
 // styles
 import style from "../styles/SignIn.module.css";
@@ -8,13 +9,17 @@ import style from "../styles/SignIn.module.css";
 const SignIn = () => {
   const navigate = useNavigate();
 
-  const [id, setId] = useState("");
-  const [validateId, setValidateId] = useState(false);
+  const {
+    value: id,
+    validateValue: validateId,
+    validateStatus: validateIdStatus,
+  } = useValidate();
 
-  const [pw, setPw] = useState("");
-  const [validatePw, setValidatePw] = useState(false);
-
-  const [buttonState, setButtonState] = useState(true);
+  const {
+    value: pw,
+    validateValue: validatePw,
+    validateStatus: validatePwStatus,
+  } = useValidate();
 
   // 로그인시, /todo로 리다이렉트
   useEffect(() => {
@@ -23,35 +28,6 @@ const SignIn = () => {
       navigate(`/todo`);
     }
   }, [navigate]);
-
-  const checkId = (value) => {
-    setId(value);
-
-    const reg = /@/;
-    if (reg.test(value) === true) {
-      setValidateId(true);
-      if (validatePw === true) {
-        setButtonState(false);
-      }
-    } else {
-      setValidateId(false);
-      setButtonState(true);
-    }
-  };
-
-  const checkPw = (value) => {
-    setPw(value);
-    const reg = /.{8,}$/;
-    if (reg.test(value) === true) {
-      setValidatePw(true);
-      if (validateId === true) {
-        setButtonState(false);
-      }
-    } else {
-      setValidatePw(false);
-      setButtonState(true);
-    }
-  };
 
   const signIn = () => {
     let data = {
@@ -95,11 +71,11 @@ const SignIn = () => {
           type="text"
           data-testid="email-input"
           value={id}
-          onInput={(e) => checkId(e.target.value)}
+          onInput={(e) => validateId([e.target.value, /@/])}
           className={style.input}
           id="joinId"
         />
-        {validateId === true ? (
+        {validateIdStatus === true ? (
           <p className={`${style.desc} ${style.color_blue}`}>
             사용가능한 이메일입니다.
           </p>
@@ -116,12 +92,12 @@ const SignIn = () => {
           type="password"
           data-testid="password-input"
           value={pw}
-          onInput={(e) => checkPw(e.target.value)}
+          onInput={(e) => validatePw([e.target.value, /.{8,}$/])}
           autoComplete="false"
           id="joinPw"
           className={style.input}
         />
-        {validatePw === true ? (
+        {validatePwStatus === true ? (
           <p className={`${style.desc} ${style.color_blue}`}>
             사용가능한 비밀번호입니다.
           </p>
@@ -134,7 +110,7 @@ const SignIn = () => {
         <button
           type="button"
           data-testid="signin-button"
-          disabled={buttonState}
+          disabled={!(validateIdStatus && validatePwStatus)}
           onClick={() => {
             signIn();
           }}
